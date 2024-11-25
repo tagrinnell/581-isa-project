@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def main() :
-    resultsCsv = pandas.read_csv("Project/results.csv")
+    resultsCsv = pandas.read_csv("isa_inspection/results.csv")
 
     # Grab rows
     arm = resultsCsv.iloc[0]
