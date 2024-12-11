@@ -12,20 +12,17 @@ def main() :
         currIsa = ''
         # Determine what ISA we're looking at
         for isa in isaType :
-            if isa in file :
+            if fileName.find(isa) != -1 :
                 currIsa = isa
 
         with open(fileName, 'r') as file:
             fileContent = file.read()
 
         fileContent = fileContent.replace(": ", ",")
-
-        for line in f :
-            
-            # Need to Change ': ' -> ,
-
-            # Identify by instruction
-            pass
+        
+        with open(fileName, 'w') as file:
+            file.write(fileContent)
+        
 
 if __name__ == "__main__" :
     main()
