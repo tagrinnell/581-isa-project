@@ -12,10 +12,7 @@ def extract_stats(file_path):
             elif line.startswith("hostSeconds") and 'hostSeconds' not in found_vars:
                 stats['hostSeconds'] = line.split()[1]
                 found_vars.add('hostSeconds')
-            elif line.startswith("simInsts") and 'simInsts' not in found_vars:
-                stats['simInsts'] = line.split()[1]
-                found_vars.add('simInsts')
-            if line.startswith("system.cpu.cpi") and 'cpi' not in found_vars:
+            elif line.startswith("system.cpu.cpi") and 'cpi' not in found_vars:
                 stats['cpi'] = line.split()[1]
                 found_vars.add('cpi')
             elif line.startswith("system.cpu.ipc") and 'ipc' not in found_vars:
@@ -23,7 +20,7 @@ def extract_stats(file_path):
                 found_vars.add('ipc')
 
             # Stop if all desired variables have been founds
-            if len(found_vars) == 5 :
+            if len(found_vars) == 4 :
                 break
 
     return stats
@@ -31,17 +28,18 @@ def extract_stats(file_path):
 
 def main():
     # benchmark_ISAOlevel_m5out
-    test = ['gcc_x86O0_m5out', 'gcc_x86O1_m5out', 'gcc_x86O2_m5out', 'gcc_x86O3_m5out', 'gcc_ARMO0_m5out', 'gcc_ARMO1_m5out', 'gcc_ARMO2_m5out', 'gcc_ARMO3_m5out',
-            'bzip2_x86O0_m5out', 'bzip2_x86O1_m5out', 'bzip2_x86O2_m5out', 'bzip2_x86O3_m5out', 'bzip2_ARMO0_m5out', 'bzip2_ARMO1_m5out', 'bzip2_ARMO2_m5out', 'bzip2_ARMO3_m5out']
+    # test = ['gcc_X86O0_m5out', 'gcc_X86O1_m5out', 'gcc_X86O2_m5out', 'gcc_X86O3_m5out', 'gcc_ARMO0_m5out', 'gcc_ARMO1_m5out', 'gcc_ARMO2_m5out', 'gcc_ARMO3_m5out',
+    #         'bzip2_X86O0_m5out', 'bzip2_X86O1_m5out', 'bzip2_X86O2_m5out', 'bzip2_X86O3_m5out', 'bzip2_ARMO0_m5out', 'bzip2_ARMO1_m5out', 'bzip2_ARMO2_m5out', 'bzip2_ARMO3_m5out']
     
+    test = ['gcc_X86O0_m5out', 'gcc_X86O1_m5out', 'gcc_X86O2_m5out', 'gcc_X86O3_m5out',
+            'bzip2_X86O0_m5out', 'bzip2_X86O1_m5out', 'bzip2_X86O2_m5out', 'bzip2_X86O3_m5out'] 
+
     # Output CSV
-    output_file = '/home/taz/Repos/runData/allRuns.csv'
+    output_file = '/home/taz/Repos/581-isa-project/runData/allRuns.csv'
+    results = []
 
     for i in test :
-        directory_path = '/home/taz/Repos/runData/' + i + '/'  # Change this to your directory path
-        # output_file = '/home/taz/Repos/runData/' + i + '/'  # Output CSV file
-
-        results = []
+        directory_path = '/home/taz/Repos/581-isa-project/runData/' + i + '/'  # Change this to your directory path
         
         os.chdir(directory_path)
         filename = directory_path + "stats.txt"
@@ -50,9 +48,9 @@ def main():
         results.append(stats)
 
         # Write results to CSV
-        with open(output_file, 'w', newline='') as csvfile:
-            fieldnames = ['filename', 'cpi'
-                        'hostSeconds', 'simInsts', 'cpi', 'ipc']
+        with open(output_file, 'w+', newline='') as csvfile:
+            fieldnames = ['filename', 'simSeconds',
+                        'hostSeconds', 'cpi', 'ipc']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             writer.writeheader()  # Write the header

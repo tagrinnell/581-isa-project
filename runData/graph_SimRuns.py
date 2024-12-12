@@ -3,36 +3,52 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def main() :
-    resultsCsv = pandas.read_csv("isa_inspection/results.csv")
+
+    # test = ['gcc_x86O0_m5out', 'gcc_x86O1_m5out', 'gcc_x86O2_m5out', 'gcc_x86O3_m5out', 'gcc_ARMO0_m5out', 'gcc_ARMO1_m5out', 'gcc_ARMO2_m5out', 'gcc_ARMO3_m5out',
+    #         'bzip2_x86O0_m5out', 'bzip2_x86O1_m5out', 'bzip2_x86O2_m5out', 'bzip2_x86O3_m5out', 'bzip2_ARMO0_m5out', 'bzip2_ARMO1_m5out', 'bzip2_ARMO2_m5out', 'bzip2_ARMO3_m5out']
+
+    test = ['gcc_X86O0_m5out', 'gcc_X86O1_m5out', 'gcc_X86O2_m5out', 'gcc_X86O3_m5out',
+            'bzip2_X86O0_m5out', 'bzip2_X86O1_m5out', 'bzip2_X86O2_m5out', 'bzip2_X86O3_m5out'] 
+
+    resultsCsv = pandas.read_csv("runData/allRuns.csv", index_col=0)
+    print(resultsCsv)
+
+    # Make Graph for CPI, SimTime per benchmark
+
+    simTime = []
+    cpi = []
+
+    # print(resultsCsv.loc['gcc_X86O0_m5out'])
 
     # Grab rows
-    arm = resultsCsv.iloc[0]
-    mips = resultsCsv.iloc[1]
-    x86 = resultsCsv.iloc[2]
+    for row in test :
+        simTime.append(resultsCsv.loc[row]['simSeconds'])
+        # cpi.append(row['cpi'])
+        pass
 
-    armMeas = [arm['% Regular'], arm['% Orthogonal'], arm['% Composable']]
-    mipsMeas = [mips['% Regular'], mips['% Orthogonal'], mips['% Composable']]
-    x86Meas = [x86['% Regular'], x86['% Orthogonal'], x86['% Composable']]
+    print(simTime)
 
-    # Check grabbed information
-    print(mips)
-    print(arm)
-    print(x86)
-
-    xLabels = ['% Regular', '% Orthogonal', '% Composable']
+    xLabels = test
     width = 0.3
-    x = np.arange(len(xLabels))
+    x = np.arange(len(test))
+
+    ax = plt.axes() 
+    plt.bar(x, simTime, width, color='Lime')
+
     
-    plt.bar(x-0.3, mipsMeas, width, color='#cc2f82')
-    plt.bar(x, x86Meas, width, color='#0169b8')
-    plt.bar(x+0.3, armMeas, width, color='#0196c8')
+    # plt.bar(x-0.3, mipsMeas, width, color='#cc2f82')
+    # plt.bar(x, x86Meas, width, color='#0169b8')
+    # plt.bar(x+0.3, armMeas, width, color='#0196c8')
 
-    plt.legend(['MIPS', 'x86', 'ARM']) 
-    plt.xticks([0, 1, 2], xLabels)
+    # plt.legend(['MIPS', 'x86', 'ARM']) 
+    ax.set_yticks([0.0, 0.02, 0.04, 0.06])
 
-    plt.xlabel('Adherence to Principles')
-    plt.ylabel('Percent Adherence')
-    plt.title('Adherence to Wulf\'s Principles of MIPS32, ARM-AA32, x86 ISAs')
+    # ax.set_xticklabels(test)
+    # plt.xticks(x, xLabels)
+
+    # plt.xlabel('Adherence to Principles')
+    # plt.ylabel('Percent Adherence')
+    # plt.title('Adherence to Wulf\'s Principles of MIPS32, ARM-AA32, x86 ISAs')
 
     plt.show()
 
