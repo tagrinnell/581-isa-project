@@ -9,7 +9,9 @@ def main() :
 
     test = ['gcc_X86O0_m5out', 'gcc_X86O1_m5out', 'gcc_X86O2_m5out', 'gcc_X86O3_m5out',
             'bzip2_X86O0_m5out', 'bzip2_X86O1_m5out', 'bzip2_X86O2_m5out', 'bzip2_X86O3_m5out'] 
-
+    labels = ["gcc - Opt. 0", "gcc - Opt. 1", "gcc - Opt. 2", "gcc - Opt. 3",
+              "bzip2 - Opt. 0", "bzip2 - Opt. 1", "bzip2 - Opt. 2", "bzip2 - Opt. 3"]
+              
     resultsCsv = pandas.read_csv("runData/allRuns.csv", index_col=0)
     print(resultsCsv)
 
@@ -29,26 +31,19 @@ def main() :
     print(simTime)
 
     xLabels = test
-    width = 0.3
+    width = 0.5
     x = np.arange(len(test))
 
     ax = plt.axes() 
-    plt.bar(x, simTime, width, color='Lime')
+    barlist = plt.bar(labels, simTime, width, color='#0169b8')#, hatch=['/', '/', '/', '/', 'o', 'o', 'o', 'o']) # '/', '.', '-', '|'
 
-    
-    # plt.bar(x-0.3, mipsMeas, width, color='#cc2f82')
-    # plt.bar(x, x86Meas, width, color='#0169b8')
-    # plt.bar(x+0.3, armMeas, width, color='#0196c8')
+    ax.tick_params(axis='x', labelrotation=70)
+    plt.legend(['x86'])
 
-    # plt.legend(['MIPS', 'x86', 'ARM']) 
-    ax.set_yticks([0.0, 0.02, 0.04, 0.06])
-
-    # ax.set_xticklabels(test)
-    # plt.xticks(x, xLabels)
-
-    # plt.xlabel('Adherence to Principles')
-    # plt.ylabel('Percent Adherence')
-    # plt.title('Adherence to Wulf\'s Principles of MIPS32, ARM-AA32, x86 ISAs')
+    plt.xlabel('Optimization Level')
+    plt.ylabel('Simulated Runtime (secs)')
+    plt.title('Simulated Runtime by Benchmark')
+    plt.tight_layout()
 
     plt.show()
 

@@ -6,9 +6,9 @@ gem5 is copyrighted software; use the --copyright option for details.
 
 gem5 version 23.0.0.1
 gem5 compiled Oct 29 2024 08:38:19
-gem5 started Dec 12 2024 01:21:29
-gem5 executing on cpre581-duwe-base, pid 427081
-command line: /home/vm-user/gem5/build/X86/gem5.opt -r -e -d /home/vm-user/finalprojruns/bzip2_X86O2_m5out /home/vm-user/gem5/configs/deprecated/example/se.py --cpu-clock=3GHz --mem-size=2GB --cpu-type=DerivO3CPU --caches --l2cache -I 100000000 --cmd /home/vm-user/SPEC/benchspec/CPU2006/401.bzip2/exe/bzip2_base_O2.gcc43-64bit --options '/home/vm-user/SPEC/benchspec/CPU2006/401.bzip2/run/run_base_test_gcc43-64bit.0000/input.program 5'
+gem5 started Dec 12 2024 22:16:08
+gem5 executing on cpre581-duwe-base, pid 460754
+command line: /home/vm-user/gem5/build/X86/gem5.opt -r -e -d /home/vm-user/finalprojruns/bzip2_X86O2_m5out /home/vm-user/gem5/configs/deprecated/example/se.py --cpu-clock=3GHz --mem-size=2GB --cpu-type=X86MinorCPU --caches --l2cache -I 100000000 --cmd /home/vm-user/SPEC/benchspec/CPU2006/401.bzip2/exe/bzip2_base_O2.gcc43-64bit --options '/home/vm-user/SPEC/benchspec/CPU2006/401.bzip2/run/run_base_test_gcc43-64bit.0000/input.program 5'
 
 **** REAL SIMULATION ****
-Exiting @ tick 33836312484 because a thread reached the max instruction count
+Exiting @ tick 79655421510 because a thread reached the max instruction count
